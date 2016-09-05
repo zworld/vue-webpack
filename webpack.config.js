@@ -1,10 +1,9 @@
 var path = require("path");
 var webpack = require("webpack");
-
-
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 //webpack配置
-
 module.exports = {
     //入口文件
     entry:{
@@ -13,11 +12,13 @@ module.exports = {
     },
     //输出
     output:{
-        path: path.join(__dirname,'dist/public'),
-        //publicPath 插件文件生成的默认位置
-        publicPath: "/vue-webpack/dist/public/",
-        filename: "js/[name].js",
-        //chunkFilename不了解
+        //入口文件输出的位置
+        path: path.join(__dirname,'dist'),
+        //publicPath 给生成的文件添加的路径前缀
+        publicPath: "/vue-webpack/dist/",
+        filename: "/js/[name].js",
+        //非入口文件,用AMD和CMD加载就会生成无名的chunk文件
+        chunkFilename: "lib/[name].bundle.js"
     },
 
     //loader
@@ -30,14 +31,14 @@ module.exports = {
             },
             //转化ES6
             {
-                test: /\.js$/,
+                test: /\.(js|es6)$/,
                 loader: 'babel',
                 exclude: /node_modules/
             },
             // 编译css并自动添加css前缀
             {
                 test: /\.css$/,
-                loader: 'style!css!autoprefixer'
+                loader: ExtractTextPlugin.extract("style-loader", "css!autoprefixer")
             },
             //less
             {
@@ -86,5 +87,18 @@ module.exports = {
         }
     },
     //插件
+    plugins:[
+        //生成公共Css文件
+        new ExtractTextPlugin("css/css.css"),
 
+        //生成index.html
+        new HtmlWebpackPlugin({
+            name: 'html',
+            filename: "index.html",
+            template: "./src/layout.html",
+            //?
+            inject: true
+        }),
+        
+    ]
 }

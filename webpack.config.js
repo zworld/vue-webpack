@@ -9,6 +9,7 @@ module.exports = {
     //入口文件
     entry:{
         app: "./src/app.js",
+        //vendor 是如何找寻文件的
     },
     //输出
     output:{

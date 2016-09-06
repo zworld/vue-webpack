@@ -15,7 +15,7 @@ module.exports = {
         //入口文件输出的位置
         path: path.join(__dirname,'dist'),
         //publicPath 给生成的文件添加的路径前缀
-        publicPath: "/vue-webpack/dist/",
+        publicPath: "/vue-webpack/dist",
         filename: "/js/[name].js",
         //非入口文件,用AMD和CMD加载就会生成无名的chunk文件
         chunkFilename: "lib/[name].bundle.js"
@@ -38,6 +38,7 @@ module.exports = {
             // 编译css并自动添加css前缀
             {
                 test: /\.css$/,
+                //必须这样才能用插件合并CSS
                 loader: ExtractTextPlugin.extract("style-loader", "css!autoprefixer")
             },
             //less

@@ -4,8 +4,11 @@
   "description": "",
   "main": "wepack.config.js",
   "scripts": {
+    "start":"webpack-dev-server --hot --inline",
+    "dev": "webpack --w",
+    "online": "node build.js online",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    },
   "keywords": [],
   "author": "",
   "license": "ISC",

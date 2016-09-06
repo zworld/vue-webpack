@@ -96,9 +96,19 @@ module.exports = {
             name: 'html',
             filename: "index.html",
             template: "./src/layout.html",
-            //?
+            //多个入口文件  用 excludeChunks:排除不用的
+            //excludeChunks: ['app', 'login'],
             inject: true
         }),
         
-    ]
+    ],
+    //配置webpack-dev-server
+    devServer:{
+        // historyApiFallback:true,
+        hot:true,
+        inline:true,
+        progress:true,
+        port:9090,
+        contentBase:"./dist"
+    }
 }

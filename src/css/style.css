@@ -1,0 +1,13 @@
+html,body{
+    height: 100px;
+    background: red;
+    width: 200px;
+    border: 1px solid blue;
+    position: absolute;
+    display: block;
+}
+#app{
+    width: 100px;
+    height: 600px;
+    background: #f9f9f9;
+}

@@ -78,6 +78,9 @@ module.exports = {
         presets: ["es2015"],
         plugins: ["transform-runtime"]
     },
+    //开启source-map,方便定位
+    // devtool: 'source-map',
+    
     //其他配置
     resolve:{
         //省略扩展名

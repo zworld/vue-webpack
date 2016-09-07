@@ -18,6 +18,8 @@ router.map({
 
 //开启
 var Layout = Vue.extend({
-    template:'<h1>index</h1>'
+    template:'<h1>index</h1>',
+    //是否取代挂载点
+    replace: false
 });
 router.start(Layout,'#app');

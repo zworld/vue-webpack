@@ -1,5 +1,62 @@
-#app{
-  h1{
-    background: red;
-  }
+*{
+  margin: 0;
+  padding:0;
+  box-sizing: border-box;
 }
+a{
+  text-decoration: none;
+}
+ul,li{
+  list-style: none;
+}
+.clearfloat:after{
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  clear: both;
+}
+.menu{
+  position: absolute;
+  top: 0;
+  bottom:0;
+  left: 0;
+  width: 260px;
+  background-color: #516bc1;
+}
+.user-info{
+  height: 90px;
+  padding: 20px 0 20px 20px;
+}
+.user-info div{
+  height: 100%;
+  line-height: 50px;
+  float: left;
+  overflow: hidden;
+}
+.user-portrait{
+  border-radius: 50%;
+  width: 45px;
+  border: 1px solid blue;
+}
+.user-portrait img{
+  max-width: 100%;
+}
+.user-name{
+  padding-left: 8px;
+}
+.user-tool{
+  width: 80px;
+  margin-left: 50px;
+}
+.user-tool a{
+  display: inline-block;
+  height: 50px;
+  width: 30px;
+}
+.list-item{
+  height: 50px;
+  background: red;
+  padding-left: 20px;
+}
+

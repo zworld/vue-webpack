@@ -56,6 +56,15 @@ module.exports = {
                     name: "./images/[name].[ext]?[hash:8]"
                 }
             },
+            //字体？
+            {
+                test: /\.(eot|svg|ttf|woff|woff2|cur)$/,
+                loader: "url-loader",
+                query: {
+                    limit: 1,
+                    name: "/fonts/[name].[ext]"
+                }
+            },
             //html模板编译？
             {
                 test: /\.(html|tpl)$/,
@@ -99,7 +108,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             name: 'html',
             filename: "index.html",
-            template: "./src/layout.html",
+            template: "./src/index.html",
             //多个入口文件  用 excludeChunks:排除不用的
             //excludeChunks: ['app', 'login'],
             inject: true

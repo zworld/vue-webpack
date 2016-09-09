@@ -1,5 +1,8 @@
 <template>
     <div class="menu">
+        <div :class="['menu-toggle',menuToggle.toggleStatus]" @click="toggle">
+            <span :class="['glyphicon',menuToggle.toggleIcon]"></span>
+        </div>
        <div class="user-info clearfloat">
            <div class="user-portrait">
                <img src="../images/portrait.jpg">
@@ -12,34 +15,77 @@
        </div>
         <div class="item-list-container">
             <ul class='menu-list'>
-                <li class="list-item">
+                <li class="list-item" v-for="item in allList">
                     <div class="item-left">
+                        <span  :class="['glyphicon',item.icon]"></span>
+                        <span class="item-title">{{item.title}}</span>
                     </div>
                     <div class="count-tag">
+                        {{item.count}}
                     </div>
-                </li>
-                <li class="list-item">
-                </li>
-                <li class="list-item">
                 </li>
             </ul>
         </div>
     </div>
 </template>
 <style>
-
+    @import  '../css/menu.css';
 </style>
 <script>
-//    import HeaderComponent from './components/header.vue'
-//    import OtherComponent from './components/other.vue'
     export default{
-        data(){
-            return{
-                msg:'hello vue'
-            }
-        },
         components:{
 
+        },
+
+        data(){
+            return{
+                allList: [
+                    {
+                        icon:  'glyphicon-envelope',
+                        title: '所有',
+                        count: 20,
+                    },
+                    {
+                        icon:  'glyphicon-th-list',
+                        title: '今天',
+                        count: 20,
+                    },
+                    {
+                        icon:  'glyphicon-th-large',
+                        title: '最近七天',
+                        count: 20,
+                    },
+                    {
+                        icon:  'glyphicon-th-large',
+                        title: '最近一月',
+                        count: 20,
+                    },
+                ],
+                menuToggle: {
+                    toggleStatus:'on',
+                    toggleIcon:"glyphicon-chevron-left",
+                }
+            }
+        },
+
+        methods: {
+            toggle(){
+                var vm = this;
+                if(vm.menuToggle.toggleStatus == "on"){
+                    vm.menuToggle.toggleStatus = "off";
+                    $('.main').animate({left:"130px"},600,function () {
+                        vm.menuToggle.toggleIcon = "glyphicon-chevron-right";
+                        $('.menu-toggle').css('right','133px')
+                    })
+                }else {
+                    vm.menuToggle.toggleStatus = "on";
+                    $('.main').animate({left:"260px"},600);
+                    $('.menu-toggle').animate({right:"2px"},600,function (){
+                        vm.menuToggle.toggleIcon = "glyphicon-chevron-left";
+                    })
+
+                }
+            }
         }
     }
 </script>

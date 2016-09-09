@@ -9,6 +9,7 @@ module.exports = {
     entry:{
         app: "./src/app.js",
         //vendor 是如何找寻文件的
+        vendor:['jquery']
     },
     //输出
     output:{
@@ -96,11 +97,17 @@ module.exports = {
         extensions: ["", ".js", ".es6", ".vue", ".html"],
         //别名
         alias:{
-
+            "jquery": path.join(__dirname,"./src/lib/jquery/jquery.min.js"),
+            "echarts": path.join(__dirname,"./src/lib/echarts/echarts.min.js")
         }
     },
     //插件
     plugins:[
+        new webpack.ProvidePlugin({ //加载组件
+            jQuery: "jquery",
+            $: "jquery",
+            echarts: "echarts"
+        }),
         //生成公共Css文件
         new ExtractTextPlugin("css/css.css"),
 

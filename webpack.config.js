@@ -9,7 +9,7 @@ module.exports = {
     entry:{
         app: "./src/app.js",
         //vendor 是如何找寻文件的
-        vendor:['jquery']
+        vendor:['jquery','bootstrap']
     },
     //输出
     output:{
@@ -98,7 +98,8 @@ module.exports = {
         //别名
         alias:{
             "jquery": path.join(__dirname,"./src/lib/jquery/jquery.min.js"),
-            "echarts": path.join(__dirname,"./src/lib/echarts/echarts.min.js")
+            "echarts": path.join(__dirname,"./src/lib/echarts/echarts.min.js"),
+            "bootstrap": path.join(__dirname,"./src/lib/bootstrap/js/bootstrap.min.js"),
         }
     },
     //插件

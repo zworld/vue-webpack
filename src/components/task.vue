@@ -25,7 +25,7 @@
                 <div id="demo" class="collapse">
                     <ul class="every-list-container">
                         <li>
-                            <input type="checkbox" @change="achiveTask()" style="z-index:500">
+                            <input type="checkbox" @change="achiveTask()">
                             <span>testtest</span>
                         </li>
                         <li>
@@ -51,6 +51,11 @@
                     msg:'',
                     date:'',
                 },
+                todayList:[
+                    {
+                        taskMsg: 'testtte'
+                    }
+                ]
             }
         },
         methods:{

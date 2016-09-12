@@ -13,27 +13,53 @@
         data(){
             return{
                 taskMsg:{
-                    msg:'',
-                    date:'',
-                },
-                todayList:[
-                    {
-                        taskMsg: 'testtte'
+                    addMsg:'',
+                    addDate:'',
+                    todayList:{
+                        title:"今天",
+                        data:[
+                             {
+                                 item: 'testtte'
+                             },
+                            {
+                                item: 'testtte'
+                            }
+                        ]
                     },
-                    {
-                        taskMsg: '123'
+                    completeList:{
+                        title:"已完成",
+                        data:[
+                            {
+                                item:'test'
+                            },
+                            {
+                                item:'test'
+                            }
+                        ],
                     }
-                ]
+                }
             }
         },
         methods:{
-            addTask(){
-                alert(this.taskMsg.msg)
+            addTask(msg){
+                if(msg){
+                    var vm =this;
+                    vm.taskMsg.todayList.data.push({item:msg});
+                    vm.taskMsg.addMsg = "";
+                }
             },
-            achiveTask(){
-                alert('test')
+            achiveTask(i,item){
+                var vm =this;
+                vm.taskMsg.todayList.data.splice(i,1);
+                vm.taskMsg.completeList.data.push(item);
+            },
+            unachiveTask(i,item){
+                var vm = this;
+                vm.taskMsg.completeList.data.splice(i,1);
+                vm.taskMsg.todayList.data.push(item);
             }
-        },
+        }
+
 
     }
 </script>

@@ -3,7 +3,7 @@
         <div>
             <div class="title">今天</div>
             <div class="task-add">
-                <input placeholder="输入任务" v-model="taskMsg.msg" @keyup.enter="addTask" >
+                <input placeholder="输入任务" v-model="taskMsg.addMsg" @keyup.enter="addTask(taskMsg.addMsg)" >
                 <div class="add-task-tool">
                     <span class="glyphicon glyphicon-calendar"></span>
                     <span class="glyphicon glyphicon-calendar"></span>
@@ -12,20 +12,39 @@
             </div>
         </div>
     </div>
-    <div class="task-list-container">
+    <div class="task-list-container" v-if="taskMsg.todayList.data.length>0">
+        <div>
+            <div  data-toggle="collapse" data-target="#todaylist" class="list-toggle">
+                <i class="toggle-icon glyphicon glyphicon-chevron-right"></i>
+                <div class="toggle-item clearfloat">
+                    <div class="toggle-date">{{taskMsg.todayList.title||' - '}}</div>
+                    <div class="toggle-acount">{{taskMsg.todayList.data.length}}</div>
+                </div>
+            </div>
+            <div id="todaylist" class="collapse">
+                <ul class="every-list-container">
+                    <li v-for="elist in taskMsg.todayList.data">
+                        <input type="checkbox" @change="achiveTask($index,elist)">
+                        <span>{{elist.item}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="task-list-container" v-if="taskMsg.completeList.data.length>0">
         <div>
             <div  data-toggle="collapse" data-target="#demo" class="list-toggle">
                 <i class="toggle-icon glyphicon glyphicon-chevron-right"></i>
                 <div class="toggle-item clearfloat">
-                    <div class="toggle-date">今天</div>
-                    <div class="toggle-acount">2</div>
+                    <div class="toggle-date">{{taskMsg.completeList.title||' - '}}</div>
+                    <div class="toggle-acount">{{taskMsg.completeList.data.length}}</div>
                 </div>
             </div>
             <div id="demo" class="collapse">
                 <ul class="every-list-container">
-                    <li v-for="elist in todayList">
-                        <input type="checkbox" @change="achiveTask()">
-                        <span>{{elist.taskMsg}}</span>
+                    <li v-for="elist in taskMsg.completeList.data">
+                        <input type="checkbox" @change="unachiveTask($index,elist)">
+                        <span>{{elist.item}}</span>
                     </li>
                 </ul>
             </div>

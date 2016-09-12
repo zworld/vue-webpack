@@ -8,8 +8,8 @@ import bootcss from "./assets/lib/bootstrap/css/bootstrap.min.css";//引入boots
 import stylecss from './assets/css/style.css';
 
 //引入路由组件
+import today from './components/today/today.vue'
 import menu from './components/menu/menu.vue';
-import header from './components/header.vue';
 import task from './components/task/task.vue';
 
 //调用路由
@@ -18,9 +18,9 @@ Vue.use(VueRouter);
 //设置路由
 var router = new VueRouter();
 router.map({
-   '/task':{
-       name:'task',
-       component: task
+   '/today':{
+       name:'today',
+       component: today
    }
 });
 

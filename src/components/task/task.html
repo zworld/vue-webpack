@@ -1,5 +1,5 @@
 <div class="content-container">
-    <div class="task-wrap">
+    <div class="task-wrap" v-if="showContent.addContent">
         <div>
             <div class="title">今天</div>
             <div class="task-add">
@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="task-list-container" v-if="taskMsg.todayList.data.length>0">
+    <div class="task-list-container" v-if="taskMsg.todayList.data.length>0&&showContent.today">
         <div>
             <div  data-toggle="collapse" data-target="#todaylist" class="list-toggle">
                 <i class="toggle-icon glyphicon glyphicon-chevron-right"></i>

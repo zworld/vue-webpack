@@ -19,21 +19,25 @@ export default{
                     icon:  'glyphicon-envelope',
                     title: '所有',
                     count: 20,
+                    link:'all'
                 },
                 {
                     icon:  'glyphicon-th-list',
                     title: '今天',
                     count: 20,
+                    link:'today'
                 },
                 {
                     icon:  'glyphicon-th-large',
                     title: '最近七天',
                     count: 20,
+                    link:'week'
                 },
                 {
                     icon:  'glyphicon-th-large',
                     title: '最近一月',
                     count: 20,
+                    link:'month'
                 },
             ],
             menuToggle: {

@@ -1,4 +1,3 @@
-
 <style>
     @import  './task.css';
 </style>
@@ -7,6 +6,7 @@
     import html from "./task.html"
     export default{
         template:html,
+        props:['showContent'],
         components:{
             "alert":VueStrap.alert,
         },
@@ -18,9 +18,9 @@
                     todayList:{
                         title:"今天",
                         data:[
-                             {
-                                 item: 'testtte'
-                             },
+                            {
+                                item: 'testtte'
+                            },
                             {
                                 item: 'testtte'
                             }
@@ -59,7 +59,6 @@
                 vm.taskMsg.todayList.data.push(item);
             }
         }
-
 
     }
 </script>

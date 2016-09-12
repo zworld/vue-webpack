@@ -14,7 +14,7 @@
     </div>
     <div class="item-list-container">
         <ul class='menu-list'>
-            <li class="list-item" v-for="item in allList">
+            <li class="list-item" v-for="item in allList" v-link="{path: item.link}">
                 <div class="item-left">
                     <span  :class="['glyphicon',item.icon]"></span>
                     <span class="item-title">{{item.title}}</span>

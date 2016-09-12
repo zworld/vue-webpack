@@ -29,7 +29,7 @@
     </div>
 </template>
 <style>
-    @import  '../css/menu.css';
+    @import '../assets/css/menu.css';
 </style>
 <script>
     export default{

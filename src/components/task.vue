@@ -24,13 +24,9 @@
                 </div>
                 <div id="demo" class="collapse">
                     <ul class="every-list-container">
-                        <li>
+                        <li v-for="elist in todayList">
                             <input type="checkbox" @change="achiveTask()">
-                            <span>testtest</span>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <span>testst</span>
+                            <span>{{elist.taskMsg}}</span>
                         </li>
                     </ul>
                 </div>
@@ -40,10 +36,11 @@
     </div>
 </template>
 <style>
-    @import  '../css/task.css';
+    @import '../assets/css/task.css';
 </style>
 <script>
     import tasklist from './tasklist.vue'
+    import VueStrap from 'vue-strap'
     export default{
         data(){
             return{
@@ -54,6 +51,9 @@
                 todayList:[
                     {
                         taskMsg: 'testtte'
+                    },
+                    {
+                        taskMsg: '123'
                     }
                 ]
             }
@@ -69,6 +69,7 @@
 
         components:{
             "task-list": tasklist,
+            "alert":VueStrap.alert,
         }
     }
 </script>

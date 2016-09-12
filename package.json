@@ -4,11 +4,11 @@
   "description": "",
   "main": "wepack.config.js",
   "scripts": {
-    "start":"webpack-dev-server --hot --inline",
+    "start": "webpack-dev-server --hot --inline",
     "dev": "webpack --w",
     "online": "node build.js online",
     "test": "echo \"Error: no test specified\" && exit 1"
-    },
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -33,6 +33,7 @@
     "vue-html-loader": "^1.2.3",
     "vue-loader": "^8.5.2",
     "vue-router": "^0.7.13",
+    "vue-strap": "^1.1.15",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.13.2"
   }

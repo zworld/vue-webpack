@@ -66,7 +66,7 @@ module.exports = {
                     name: "/fonts/[name].[ext]"
                 }
             },
-            //html模板编译？
+            //html模板编译
             {
                 test: /\.(html|tpl)$/,
                 loader: 'html-loader'
@@ -97,9 +97,9 @@ module.exports = {
         extensions: ["", ".js", ".es6", ".vue", ".html"],
         //别名
         alias:{
-            "jquery": path.join(__dirname,"./src/lib/jquery/jquery.min.js"),
-            "echarts": path.join(__dirname,"./src/lib/echarts/echarts.min.js"),
-            "bootstrap": path.join(__dirname,"./src/lib/bootstrap/js/bootstrap.min.js"),
+            "jquery": path.join(__dirname,"./src/assets/lib/jquery/jquery.min.js"),
+            "echarts": path.join(__dirname,"./src/assets/lib/echarts/echarts.min.js"),
+            "bootstrap": path.join(__dirname,"./src/assets/lib/bootstrap/js/bootstrap.min.js"),
         }
     },
     //插件

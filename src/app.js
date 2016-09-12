@@ -1,15 +1,16 @@
 //添加Vue,router
 import Vue from "vue";
 import VueRouter from "vue-router";
+import VueStrap from  "vue-strap"
 
 //添加全局CSS
-import bootcss from "./lib/bootstrap/css/bootstrap.min.css";//引入bootstrap
-import stylecss from './css/style.css';
+import bootcss from "./assets/lib/bootstrap/css/bootstrap.min.css";//引入bootstrap
+import stylecss from './assets/css/style.css';
 
 //引入路由组件
-import menu from './components/menu.vue';
+import menu from './components/menu/menu.vue';
 import header from './components/header.vue';
-import task from './components/task.vue';
+import task from './components/task/task.vue';
 
 //调用路由
 Vue.use(VueRouter);

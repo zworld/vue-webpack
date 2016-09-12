@@ -1,0 +1,28 @@
+<div class="menu">
+    <div :class="['menu-toggle',menuToggle.toggleStatus]" @click="toggle">
+        <span :class="['glyphicon',menuToggle.toggleIcon]"></span>
+    </div>
+    <div class="user-info clearfloat">
+        <div class="user-portrait">
+            <img src="../../assets/images/portrait.jpg">
+        </div>
+        <div class="user-name"><a href="#">zworld</a></div>
+        <div class="user-tool">
+            <a href="#"><span  class="glyphicon glyphicon-search"></span></a>
+            <a href="#"><span  class="glyphicon glyphicon-envelope"></span></a>
+        </div>
+    </div>
+    <div class="item-list-container">
+        <ul class='menu-list'>
+            <li class="list-item" v-for="item in allList">
+                <div class="item-left">
+                    <span  :class="['glyphicon',item.icon]"></span>
+                    <span class="item-title">{{item.title}}</span>
+                </div>
+                <div class="count-tag">
+                    {{item.count}}
+                </div>
+            </li>
+            </ul>
+        </div>
+    </div>

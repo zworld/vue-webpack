@@ -47,4 +47,10 @@ var Layout = Vue.extend({
         'my-menu':menu,
     }
 });
+// router.beforeEach(function (transition) {
+//
+// })
+// router.afterEach(function (transition) {
+//
+// })
 router.start(Layout,'#app');

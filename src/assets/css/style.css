@@ -161,4 +161,17 @@ li {
 .menu-toggle span {
   top: 0px;
 }
+/*这个定义动画情况，以及存在时的样式，这个样式会覆盖class里的样式*/
+.show-transition {
+  transition: all 0.5s ease;
+}
+/* .mytran-enter 定义进入的开始状态 */
+/* .mytran-leave 定义离开的结束状态 */
+.show-enter {
+  padding-left: 300px;
+  padding-top: 300px;
+}
+.show-leave {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */

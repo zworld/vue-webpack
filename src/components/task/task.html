@@ -26,7 +26,47 @@
             <div id="todaylist" class="collapse">
                 <ul class="every-list-container">
                     <li v-for="elist in taskMsg.todayList.data">
-                        <input type="checkbox" @change="achiveTask($index,elist)">
+                        <input type="checkbox" @change="achiveTask($index,elist,'todayList')">
+                        <span>{{elist.item}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--最近一周-->
+    <div class="task-list-container" v-if="taskMsg.weekList.data.length>0&&filter.showContent.week">
+        <div>
+            <div  data-toggle="collapse" data-target="#weeklist" class="list-toggle">
+                <i class="toggle-icon glyphicon glyphicon-chevron-right"></i>
+                <div class="toggle-item clearfloat">
+                    <div class="toggle-date">{{taskMsg.weekList.title||' - '}}</div>
+                    <div class="toggle-acount">{{taskMsg.weekList.data.length}}</div>
+                </div>
+            </div>
+            <div id="weeklist" class="collapse">
+                <ul class="every-list-container">
+                    <li v-for="elist in taskMsg.weekList.data">
+                        <input type="checkbox" @change="achiveTask($index,elist,'weekList')">
+                        <span>{{elist.item}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--最近一月-->
+    <div class="task-list-container" v-if="taskMsg.monthList.data.length>0&&filter.showContent.month">
+        <div>
+            <div  data-toggle="collapse" data-target="#monthlist" class="list-toggle">
+                <i class="toggle-icon glyphicon glyphicon-chevron-right"></i>
+                <div class="toggle-item clearfloat">
+                    <div class="toggle-date">{{taskMsg.monthList.title||' - '}}</div>
+                    <div class="toggle-acount">{{taskMsg.monthList.data.length}}</div>
+                </div>
+            </div>
+            <div id="monthlist" class="collapse">
+                <ul class="every-list-container">
+                    <li v-for="elist in taskMsg.monthList.data">
+                        <input type="checkbox" @change="achiveTask($index,elist,'monthList')">
                         <span>{{elist.item}}</span>
                     </li>
                 </ul>
@@ -34,19 +74,39 @@
         </div>
     </div>
     <!--高优先级-->
-    <div class="task-list-container" v-if="taskMsg.completeList.data.length>0&&filter.showContent.complete">
+    <div class="task-list-container" v-if="taskMsg.highPriorList.data.length>0&&filter.showContent.highPriority">
         <div>
-            <div  data-toggle="collapse" data-target="#demo" class="list-toggle">
+            <div  data-toggle="collapse" data-target="#highPrior" class="list-toggle">
                 <i class="toggle-icon glyphicon glyphicon-chevron-right"></i>
                 <div class="toggle-item clearfloat">
-                    <div class="toggle-date">{{taskMsg.completeList.title||' - '}}</div>
-                    <div class="toggle-acount">{{taskMsg.completeList.data.length}}</div>
+                    <div class="toggle-date">{{taskMsg.highPriorList.title||' - '}}</div>
+                    <div class="toggle-acount">{{taskMsg.highPriorList.data.length}}</div>
                 </div>
             </div>
-            <div id="demo" class="collapse">
+            <div id="highPrior" class="collapse">
                 <ul class="every-list-container">
-                    <li v-for="elist in taskMsg.completeList.data">
-                        <input type="checkbox" @change="unachiveTask($index,elist)">
+                    <li v-for="elist in taskMsg.highPriorList.data">
+                        <input type="checkbox" @change="achiveTask($index,elist,'highPriorList')">
+                        <span>{{elist.item}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--无优先级-->
+    <div class="task-list-container" v-if="taskMsg.nonPriorList.data.length>0&&filter.showContent.nonPriority">
+        <div>
+            <div  data-toggle="collapse" data-target="#nonPrior" class="list-toggle">
+                <i class="toggle-icon glyphicon glyphicon-chevron-right"></i>
+                <div class="toggle-item clearfloat">
+                    <div class="toggle-date">{{taskMsg.nonPriorList.title||' - '}}</div>
+                    <div class="toggle-acount">{{taskMsg.nonPriorList.data.length}}</div>
+                </div>
+            </div>
+            <div id="nonPrior" class="collapse">
+                <ul class="every-list-container">
+                    <li v-for="elist in taskMsg.nonPriorList.data">
+                        <input type="checkbox" @change="achiveTask($index,elist,'nonPriorList')">
                         <span>{{elist.item}}</span>
                     </li>
                 </ul>

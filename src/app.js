@@ -8,16 +8,16 @@ import bootcss from "./assets/lib/bootstrap/css/bootstrap.min.css";//引入boots
 import stylecss from './assets/css/style.css';
 
 //引入路由组件
-import today from './components/today/today.vue'
+import today from './components/today/today'
 import all from './components/all/all.vue'
 import menu from './components/menu/menu.vue';
+import week from './components/week/week.vue';
+import month from './components/month/month.vue';
 import task from './components/task/task.vue';
 
 //调用路由
 Vue.use(VueRouter);
 
-Vue.config.debug = true;
-Vue.config.devtools = true;
 
 
 //设置路由
@@ -30,6 +30,14 @@ router.map({
     '/all':{
         name:'all',
         component:all
+    },
+    '/week':{
+        name:'week',
+        component: week
+    },
+    '/month':{
+        name:'month',
+        component: month
     }
 });
 

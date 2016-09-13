@@ -1,9 +1,6 @@
 /**
  * Created by zhongxinzhi on 2016/9/12.
  */
-<style>
-@import "./menu.css";
-</style>
 <script>
 import html from "./menu.html";
 

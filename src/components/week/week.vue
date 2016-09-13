@@ -10,19 +10,17 @@
         data(){
             return{
                 filter:{
-                    title:"所有",
+                    title:"最近一周",
                     showContent:{
-                        today:false,
                         complete:true,
                         addContent:true,
-                        highPriority:true,
-                        nonPriority:true,
+                        week:true
                     }
                 }
             }
         },
         components:{
-            "task-list":task
+            "task-list":task,
         }
     }
 </script>

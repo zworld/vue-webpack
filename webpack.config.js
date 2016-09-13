@@ -89,7 +89,7 @@ module.exports = {
         plugins: ["transform-runtime"]
     },
     //开启source-map,方便定位
-    // devtool: 'source-map',
+    devtool: 'stack-source-map',
     
     //其他配置
     resolve:{

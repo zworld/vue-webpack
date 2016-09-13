@@ -1,3 +1,4 @@
+/* - */
 * {
   margin: 0;
   padding: 0;
@@ -24,5 +25,137 @@ li {
   width: 0;
   height: 0;
   clear: both;
+}
+/* - */
+.content-container {
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-right: 200px;
+  width: 50%;
+}
+.content-container .task-wrap .title {
+  font-size: 30px;
+}
+.content-container .task-wrap .task-add {
+  position: relative;
+}
+.content-container .task-wrap .task-add input {
+  outline: none;
+  border: 1px solid #999999;
+  height: 33px;
+  width: 100%;
+  padding-left: 20px;
+}
+.content-container .task-wrap .task-add .add-task-tool {
+  position: absolute;
+  right: 4px;
+  top: 6px;
+}
+.content-container .task-wrap .task-add .add-task-tool span {
+  font-size: 20px;
+}
+.task-list-container {
+  margin-top: 20px;
+}
+.list-toggle {
+  position: relative;
+}
+.list-toggle .toggle-icon {
+  position: absolute;
+  left: -18px;
+}
+.list-toggle .toggle-date {
+  float: left;
+}
+.list-toggle .toggle-acount {
+  float: right;
+}
+.every-list-container li input[type="checkbox"] {
+  opacity: 0;
+}
+.every-list-container li input[type="checkbox"] + span {
+  position: relative;
+  pointer-events: none;
+}
+.every-list-container li input[type="checkbox"] + span:before {
+  z-index: 1;
+  position: absolute;
+  content: "";
+  display: block;
+  width: 13px;
+  height: 13px;
+  border: 1px solid #999999;
+  left: -17px;
+  top: 0px;
+}
+/* - */
+.menu {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 260px;
+  background-color: #516bc1;
+}
+.user-info {
+  height: 90px;
+  padding: 20px 0 20px 20px;
+}
+.user-info div {
+  height: 100%;
+  line-height: 50px;
+  float: left;
+  overflow: hidden;
+}
+.user-portrait {
+  border-radius: 50%;
+  width: 45px;
+  border: 1px solid blue;
+}
+.user-portrait img {
+  max-width: 100%;
+}
+.user-name {
+  padding-left: 8px;
+}
+.user-tool {
+  width: 80px;
+  margin-left: 50px;
+}
+.user-tool a {
+  display: inline-block;
+  height: 50px;
+  width: 30px;
+}
+.menu-list {
+  border-bottom: 1px solid #4a3f85;
+}
+.list-item {
+  cursor: pointer;
+  height: 35px;
+  padding-left: 20px;
+  line-height: 35px;
+}
+.list-item .item-left {
+  float: left;
+  height: 35px;
+}
+.list-item .item-left .glyphicon {
+  font-size: 20px;
+  height: 35px;
+  top: 5px;
+}
+.list-item .count-tag {
+  float: right;
+  margin-right: 20px;
+}
+.menu-toggle {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 25px;
+}
+.menu-toggle span {
+  top: 0px;
 }
 /*# sourceMappingURL=style.css.map */

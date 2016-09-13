@@ -4,23 +4,25 @@
 <style>
 </style>
 <script>
-//    import html from "./today.html"
+    //    import html from "./today.html"
     import task from "../task/task.vue"
     export default{
         data(){
             return{
                 filter:{
-                    title:"今天",
+                    title:"所有",
                     showContent:{
                         today:true,
                         complete:true,
                         addContent:true,
+                        highPriority:true,
+                        nonPriority:true,
                     }
                 }
             }
         },
         components:{
-           "task-list":task,
+            "task-list":task
         }
     }
 </script>

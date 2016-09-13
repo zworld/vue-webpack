@@ -9,11 +9,16 @@ import stylecss from './assets/css/style.css';
 
 //引入路由组件
 import today from './components/today/today.vue'
+import all from './components/all/all.vue'
 import menu from './components/menu/menu.vue';
 import task from './components/task/task.vue';
 
 //调用路由
 Vue.use(VueRouter);
+
+Vue.config.debug = true;
+Vue.config.devtools = true;
+
 
 //设置路由
 var router = new VueRouter();
@@ -21,7 +26,11 @@ router.map({
    '/today':{
        name:'today',
        component: today
-   }
+   },
+    '/all':{
+        name:'all',
+        component:all
+    }
 });
 
 //开启

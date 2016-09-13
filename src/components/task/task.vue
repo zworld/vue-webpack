@@ -6,7 +6,7 @@
     import html from "./task.html"
     export default{
         template:html,
-        props:['showContent'],
+        props:['filter'],
         components:{
             "alert":VueStrap.alert,
         },

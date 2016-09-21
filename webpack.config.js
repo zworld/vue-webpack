@@ -9,7 +9,7 @@ module.exports = {
     entry:{
         app: "./src/app.js",
         //vendor 是如何找寻文件的
-        vendor:['jquery','bootstrap']
+        vendor:['jquery','bootstrap','vue']
     },
     //输出
     output:{
@@ -90,7 +90,6 @@ module.exports = {
     },
     //开启source-map,方便定位
     devtool: 'stack-source-map',
-    
     //其他配置
     resolve:{
         //省略扩展名
@@ -100,6 +99,7 @@ module.exports = {
             "jquery": path.join(__dirname,"./src/assets/lib/jquery/jquery.min.js"),
             "echarts": path.join(__dirname,"./src/assets/lib/echarts/echarts.min.js"),
             "bootstrap": path.join(__dirname,"./src/assets/lib/bootstrap/js/bootstrap.min.js"),
+            "vue": path.join(__dirname,"./src/assets/lib/vue/vue.min.js"),
         }
     },
     //插件

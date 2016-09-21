@@ -2,13 +2,15 @@
     <!--任务输入添加-->
     <div class="task-wrap" v-if="filter.showContent.addContent">
         <div>
-            <div class="title">{{filter.title}}</div>
+            <div class="title">
+                {{ filter.title }}
+                <span>{{ taskMsg.addDate }}</span>
+            </div>
             <div class="task-add">
-                <input placeholder="输入任务" v-model="taskMsg.addMsg" @keyup.enter="addTask(taskMsg.addMsg)" >
+                <input placeholder="输入任务" v-model="taskMsg.addMsg" @keyup.enter="addTask(taskMsg)" >
                 <div class="add-task-tool">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                    <span class="glyphicon glyphicon-calendar"></span>
-                    <span class="glyphicon glyphicon-calendar"></span>
+                    <span class="glyphicon glyphicon-calendar" id="datepicker">
+                    </span>
                 </div>
             </div>
         </div>

@@ -1,17 +1,20 @@
 <script>
-    import VueStrap from 'vue-strap'
+    import datepicker from "../../assets/lib/datetimepicker/js/bootstrap-datetimepicker.min.js"
+    import datepicker_ZH from "../../assets/lib/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"
+    import datepickerCSS from "../../assets/lib/datetimepicker/css/bootstrap-datetimepicker.css"
     import html from "./task.html"
     export default{
         template:html,
         props:['filter'],
         components:{
-            "alert":VueStrap.alert,
         },
         data(){
+            var addDate = new Date();
             return{
+                format:"yyyy/dd/MM/",
                 taskMsg:{
                     addMsg:'',
-                    addDate:'',
+                    addDate: addDate,
                     todayList:{
                         title:"今天",
                         data:[
@@ -93,9 +96,29 @@
         },
         methods:{
             addTask(msg){
-                if(msg){
+                if(msg.addMsg){
                     var vm =this;
-                    vm.taskMsg.todayList.data.push({item:msg});
+                    var disTime = new Date().getTime() - new Date(msg.addDate);
+
+                    if(0<disTime<1000*60*60*24){
+                        vm.taskMsg.todayList.data.push({
+                            item:msg.addMsg,
+                            tag:'td',
+                            date: new Date(msg.addDate)
+                        });
+                    }else if(1000*60*60*24<disTime<1000*60*60*24*7){
+                        vm.taskMsg.weekList.data.push({
+                            item:msg.addMsg,
+                            tag:'week',
+                            date: new Date(msg.addDate)
+                        });
+                    }else{
+                        vm.taskMsg.nonPriorList.data.push({
+                            item:msg.addMsg,
+                            tag:'np',
+                            date: new Date(msg.addDate)
+                        });
+                    }
                     vm.taskMsg.addMsg = "";
                 }
             },
@@ -128,8 +151,27 @@
                 }
                 vm.taskMsg.completeList.data.splice(i,1);
                 vm.taskMsg[tag].data.push(item);
-                debugger
             }
+        },
+        ready(){
+            var vm = this;
+            var option = {
+                autoclose: true,
+                startDate:18,
+                format: 'yyyy-mm-dd hh:ii:ss',
+                language:'zh-CN',
+                weekStart: 1,
+                todayBtn:  1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0,
+                showMeridian: 1
+
+            }
+            $('#datepicker').datetimepicker(option).on('changeDate',function(){
+                vm.taskMsg.addDate = $('#datetimepicker').datetimepicker('getStartDate')
+            });
         }
 
     }

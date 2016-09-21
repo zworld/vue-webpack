@@ -18,7 +18,7 @@ import task from './components/task/task.vue';
 //调用路由
 Vue.use(VueRouter);
 
-
+Vue.config.devtools = true
 
 //设置路由
 var router = new VueRouter();
@@ -47,10 +47,4 @@ var Layout = Vue.extend({
         'my-menu':menu,
     }
 });
-// router.beforeEach(function (transition) {
-//
-// })
-// router.afterEach(function (transition) {
-//
-// })
 router.start(Layout,'#app');

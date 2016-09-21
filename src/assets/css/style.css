@@ -36,6 +36,9 @@ li {
 .content-container .task-wrap .title {
   font-size: 30px;
 }
+.content-container .task-wrap .title span {
+  font-size: 14px;
+}
 .content-container .task-wrap .task-add {
   position: relative;
 }
@@ -46,12 +49,12 @@ li {
   width: 100%;
   padding-left: 20px;
 }
-.content-container .task-wrap .task-add .add-task-tool {
+.content-container .task-wrap .add-task-tool {
   position: absolute;
   right: 4px;
   top: 6px;
 }
-.content-container .task-wrap .task-add .add-task-tool span {
+.content-container .task-wrap .add-task-tool span {
   font-size: 20px;
 }
 .task-list-container {
@@ -170,6 +173,7 @@ li {
 .show-enter {
   padding-left: 300px;
   padding-top: 300px;
+  opacity: 0;
 }
 .show-leave {
   display: none;

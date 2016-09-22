@@ -18,7 +18,7 @@ import task from './components/task/task.vue';
 //调用路由
 Vue.use(VueRouter);
 
-Vue.config.devtools = true
+Vue.config.devtools = true;
 
 //设置路由
 var router = new VueRouter();

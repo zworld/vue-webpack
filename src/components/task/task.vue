@@ -98,26 +98,28 @@
             addTask(msg){
                 if(msg.addMsg){
                     var vm =this;
-                    var disTime = new Date().getTime() - new Date(msg.addDate);
-
-                    if(0<disTime<1000*60*60*24){
+                    var disTime = new Date(msg.addDate).getTime() - new Date().getTime();
+                    if(disTime>0 && disTime<1000*60*60*24){
                         vm.taskMsg.todayList.data.push({
                             item:msg.addMsg,
                             tag:'td',
                             date: new Date(msg.addDate)
                         });
-                    }else if(1000*60*60*24<disTime<1000*60*60*24*7){
+                        debugger
+                    }else if(disTime>1000*60*60*24 && disTime<1000*60*60*24*7){
                         vm.taskMsg.weekList.data.push({
                             item:msg.addMsg,
                             tag:'week',
                             date: new Date(msg.addDate)
                         });
+                        debugger
                     }else{
                         vm.taskMsg.nonPriorList.data.push({
                             item:msg.addMsg,
                             tag:'np',
                             date: new Date(msg.addDate)
                         });
+                        debugger
                     }
                     vm.taskMsg.addMsg = "";
                 }
@@ -156,8 +158,6 @@
         ready(){
             var vm = this;
             var option = {
-                autoclose: true,
-                startDate:18,
                 format: 'yyyy-mm-dd hh:ii:ss',
                 language:'zh-CN',
                 weekStart: 1,
@@ -169,8 +169,12 @@
                 showMeridian: 1
 
             }
-            $('#datepicker').datetimepicker(option).on('changeDate',function(){
-                vm.taskMsg.addDate = $('#datetimepicker').datetimepicker('getStartDate')
+            if($('.datetimepicker').length>0){
+                $('.datetimepicker').remove()
+            }
+            $('.datepicker').datetimepicker(option).on('changeDate',function(){
+
+                vm.taskMsg.addDate = $('#datepicker').datetimepicker('getFormattedDate')
             });
         }
 

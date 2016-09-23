@@ -3,10 +3,12 @@
     import datepicker_ZH from "../../assets/lib/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"
     import datepickerCSS from "../../assets/lib/datetimepicker/css/bootstrap-datetimepicker.css"
     import html from "./task.html"
+    import clock from  '../dynamicClock/dynamicClock'
     export default{
         template:html,
         props:['filter'],
         components:{
+            'clock': clock
         },
         data(){
             var addDate = new Date();
@@ -105,21 +107,18 @@
                             tag:'td',
                             date: new Date(msg.addDate)
                         });
-                        debugger
                     }else if(disTime>1000*60*60*24 && disTime<1000*60*60*24*7){
                         vm.taskMsg.weekList.data.push({
                             item:msg.addMsg,
                             tag:'week',
                             date: new Date(msg.addDate)
                         });
-                        debugger
                     }else{
                         vm.taskMsg.nonPriorList.data.push({
                             item:msg.addMsg,
                             tag:'np',
                             date: new Date(msg.addDate)
                         });
-                        debugger
                     }
                     vm.taskMsg.addMsg = "";
                 }
@@ -149,7 +148,7 @@
                         tag = 'nonPriorList'
                         break
                     default:
-                            tag = 'highPriorList'
+                        tag = 'highPriorList'
                 }
                 vm.taskMsg.completeList.data.splice(i,1);
                 vm.taskMsg[tag].data.push(item);

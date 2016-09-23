@@ -1,6 +1,34 @@
 /******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	var parentJsonpFunction = window["webpackJsonp"];
+/******/ 	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules) {
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, callbacks = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId])
+/******/ 				callbacks.push.apply(callbacks, installedChunks[chunkId]);
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			modules[moduleId] = moreModules[moduleId];
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules);
+/******/ 		while(callbacks.length)
+/******/ 			callbacks.shift().call(null, __webpack_require__);
+/******/
+/******/ 	};
+/******/
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// "0" means "already loaded"
+/******/ 	// Array means "loading", array contains callbacks
+/******/ 	var installedChunks = {
+/******/ 		0:0
+/******/ 	};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -26,6 +54,29 @@
 /******/ 		return module.exports;
 /******/ 	}
 /******/
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId, callback) {
+/******/ 		// "0" is the signal for "already loaded"
+/******/ 		if(installedChunks[chunkId] === 0)
+/******/ 			return callback.call(null, __webpack_require__);
+/******/
+/******/ 		// an array means "currently loading".
+/******/ 		if(installedChunks[chunkId] !== undefined) {
+/******/ 			installedChunks[chunkId].push(callback);
+/******/ 		} else {
+/******/ 			// start chunk loading
+/******/ 			installedChunks[chunkId] = [callback];
+/******/ 			var head = document.getElementsByTagName('head')[0];
+/******/ 			var script = document.createElement('script');
+/******/ 			script.type = 'text/javascript';
+/******/ 			script.charset = 'utf-8';
+/******/ 			script.async = true;
+/******/
+/******/ 			script.src = __webpack_require__.p + "/lib/" + ({}[chunkId]||chunkId) + ".bundle.js";
+/******/ 			head.appendChild(script);
+/******/ 		}
+/******/ 	};
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -70,19 +121,19 @@
 	
 	var _today2 = _interopRequireDefault(_today);
 	
-	var _all = __webpack_require__(125);
+	var _all = __webpack_require__(127);
 	
 	var _all2 = _interopRequireDefault(_all);
 	
-	var _menu = __webpack_require__(130);
+	var _menu = __webpack_require__(132);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
-	var _week = __webpack_require__(134);
+	var _week = __webpack_require__(136);
 	
 	var _week2 = _interopRequireDefault(_week);
 	
-	var _month = __webpack_require__(139);
+	var _month = __webpack_require__(141);
 	
 	var _month2 = _interopRequireDefault(_month);
 	
@@ -18844,7 +18895,7 @@
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\components\\today\\today.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(124)
+	__vue_template__ = __webpack_require__(126)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -18984,33 +19035,34 @@
 	    value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(118);
-	
-	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-	
-	var _bootstrapDatetimepickerMin = __webpack_require__(119);
+	var _bootstrapDatetimepickerMin = __webpack_require__(118);
 	
 	var _bootstrapDatetimepickerMin2 = _interopRequireDefault(_bootstrapDatetimepickerMin);
 	
-	var _bootstrapDatetimepickerZhCN = __webpack_require__(120);
+	var _bootstrapDatetimepickerZhCN = __webpack_require__(119);
 	
 	var _bootstrapDatetimepickerZhCN2 = _interopRequireDefault(_bootstrapDatetimepickerZhCN);
 	
-	var _bootstrapDatetimepicker = __webpack_require__(121);
+	var _bootstrapDatetimepicker = __webpack_require__(120);
 	
 	var _bootstrapDatetimepicker2 = _interopRequireDefault(_bootstrapDatetimepicker);
 	
-	var _task = __webpack_require__(123);
+	var _task = __webpack_require__(122);
 	
 	var _task2 = _interopRequireDefault(_task);
 	
+	var _dynamicClock = __webpack_require__(123);
+	
+	var _dynamicClock2 = _interopRequireDefault(_dynamicClock);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// <script>
 	exports.default = {
 	    template: _task2.default,
 	    props: ['filter'],
-	    components: {},
+	    components: {
+	        'clock': _dynamicClock2.default
+	    },
 	    data: function data() {
 	        var addDate = new Date();
 	        return {
@@ -19085,27 +19137,24 @@
 	            if (msg.addMsg) {
 	                var vm = this;
 	                var disTime = new Date(msg.addDate).getTime() - new Date().getTime();
-	                if (0 < disTime < 1000 * 60 * 60 * 24) {
+	                if (disTime > 0 && disTime < 1000 * 60 * 60 * 24) {
 	                    vm.taskMsg.todayList.data.push({
 	                        item: msg.addMsg,
 	                        tag: 'td',
 	                        date: new Date(msg.addDate)
 	                    });
-	                    debugger;
-	                } else if (1000 * 60 * 60 * 24 < disTime < 1000 * 60 * 60 * 24 * 7) {
+	                } else if (disTime > 1000 * 60 * 60 * 24 && disTime < 1000 * 60 * 60 * 24 * 7) {
 	                    vm.taskMsg.weekList.data.push({
 	                        item: msg.addMsg,
 	                        tag: 'week',
 	                        date: new Date(msg.addDate)
 	                    });
-	                    debugger;
 	                } else {
 	                    vm.taskMsg.nonPriorList.data.push({
 	                        item: msg.addMsg,
 	                        tag: 'np',
 	                        date: new Date(msg.addDate)
 	                    });
-	                    debugger;
 	                }
 	                vm.taskMsg.addMsg = "";
 	            }
@@ -19142,18 +19191,24 @@
 	        }
 	    },
 	    ready: function ready() {
-	        var _option;
-	
 	        var vm = this;
-	        var option = (_option = {
-	            autoclose: true,
-	            startDate: 18,
+	        var option = {
 	            format: 'yyyy-mm-dd hh:ii:ss',
 	            language: 'zh-CN',
 	            weekStart: 1,
-	            todayBtn: 1
-	        }, (0, _defineProperty3.default)(_option, "autoclose", 1), (0, _defineProperty3.default)(_option, "todayHighlight", 1), (0, _defineProperty3.default)(_option, "startView", 2), (0, _defineProperty3.default)(_option, "forceParse", 0), (0, _defineProperty3.default)(_option, "showMeridian", 1), _option);
-	        $('#datepicker').datetimepicker(option).on('changeDate', function () {
+	            todayBtn: 1,
+	            autoclose: 1,
+	            todayHighlight: 1,
+	            startView: 2,
+	            forceParse: 0,
+	            showMeridian: 1
+	
+	        };
+	        if ($('.datetimepicker').length > 0) {
+	            $('.datetimepicker').remove();
+	        }
+	        $('.datepicker').datetimepicker(option).on('changeDate', function () {
+	
 	            vm.taskMsg.addDate = $('#datepicker').datetimepicker('getFormattedDate');
 	        });
 	    }
@@ -19161,39 +19216,11 @@
 	// </script>
 
 	/* generated by vue-loader */
+	// <script>
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 118 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	exports.__esModule = true;
-	
-	var _defineProperty = __webpack_require__(94);
-	
-	var _defineProperty2 = _interopRequireDefault(_defineProperty);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (obj, key, value) {
-	  if (key in obj) {
-	    (0, _defineProperty2.default)(obj, key, {
-	      value: value,
-	      enumerable: true,
-	      configurable: true,
-	      writable: true
-	    });
-	  } else {
-	    obj[key] = value;
-	  }
-	
-	  return obj;
-	};
-
-/***/ },
-/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -20091,7 +20118,7 @@
 	});
 
 /***/ },
-/* 120 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {"use strict";
@@ -20115,36 +20142,81 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 121 */
+/* 120 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 122 */,
-/* 123 */
+/* 121 */,
+/* 122 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"content-container\"  transition=\"show\">\r\n    <!--任务输入添加-->\r\n    <div class=\"task-wrap\" v-if=\"filter.showContent.addContent\">\r\n        <div>\r\n            <div class=\"title\">\r\n                {{ filter.title }}\r\n                <span>{{ taskMsg.addDate }}</span>\r\n            </div>\r\n            <div class=\"task-add\">\r\n                <input placeholder=\"输入任务\" v-model=\"taskMsg.addMsg\" @keyup.enter=\"addTask(taskMsg)\" >\r\n                <div class=\"add-task-tool\">\r\n                    <span class=\"glyphicon glyphicon-calendar\" id=\"datepicker\">\r\n                    </span>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--今天-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.todayList.data.length>0&&filter.showContent.today\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#todaylist\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.todayList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.todayList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"todaylist\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.todayList.data\">\r\n                        <input type=\"checkbox\" @change=\"achiveTask($index,elist,'todayList')\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--最近一周-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.weekList.data.length>0&&filter.showContent.week\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#weeklist\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.weekList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.weekList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"weeklist\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.weekList.data\">\r\n                        <input type=\"checkbox\" @change=\"achiveTask($index,elist,'weekList')\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--最近一月-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.monthList.data.length>0&&filter.showContent.month\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#monthlist\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.monthList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.monthList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"monthlist\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.monthList.data\">\r\n                        <input type=\"checkbox\" @change=\"achiveTask($index,elist,'monthList')\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--高优先级-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.highPriorList.data.length>0&&filter.showContent.highPriority\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#highPrior\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.highPriorList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.highPriorList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"highPrior\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.highPriorList.data\">\r\n                        <input type=\"checkbox\" @change=\"achiveTask($index,elist,'highPriorList')\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--无优先级-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.nonPriorList.data.length>0&&filter.showContent.nonPriority\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#nonPrior\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.nonPriorList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.nonPriorList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"nonPrior\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.nonPriorList.data\">\r\n                        <input type=\"checkbox\" @change=\"achiveTask($index,elist,'nonPriorList')\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--完成-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.completeList.data.length>0&&filter.showContent.complete\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#complete\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.completeList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.completeList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"complete\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.completeList.data\">\r\n                        <input type=\"checkbox\" @change=\"unachiveTask($index,elist)\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+	module.exports = "<div class=\"content-container\"  transition=\"show\">\r\n    <!--任务输入添加-->\r\n    <div class=\"task-wrap\" v-if=\"filter.showContent.addContent\">\r\n        <div>\r\n            <div class=\"title\">\r\n                {{ filter.title }}\r\n                <span>{{ taskMsg.addDate }}</span>\r\n            </div>\r\n            <div class=\"task-add\">\r\n                <input placeholder=\"输入任务\" v-model=\"taskMsg.addMsg\" @keyup.enter=\"addTask(taskMsg)\" >\r\n                <div class=\"add-task-tool\">\r\n                    <span class=\"glyphicon glyphicon-calendar datepicker\">\r\n                    </span>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--今天-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.todayList.data.length>0&&filter.showContent.today\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#todaylist\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.todayList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.todayList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"todaylist\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.todayList.data\">\r\n                        <input type=\"checkbox\" @change=\"achiveTask($index,elist,'todayList')\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--最近一周-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.weekList.data.length>0&&filter.showContent.week\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#weeklist\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.weekList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.weekList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"weeklist\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.weekList.data\">\r\n                        <input type=\"checkbox\" @change=\"achiveTask($index,elist,'weekList')\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--最近一月-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.monthList.data.length>0&&filter.showContent.month\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#monthlist\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.monthList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.monthList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"monthlist\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.monthList.data\">\r\n                        <input type=\"checkbox\" @change=\"achiveTask($index,elist,'monthList')\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--高优先级-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.highPriorList.data.length>0&&filter.showContent.highPriority\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#highPrior\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.highPriorList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.highPriorList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"highPrior\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.highPriorList.data\">\r\n                        <input type=\"checkbox\" @change=\"achiveTask($index,elist,'highPriorList')\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--无优先级-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.nonPriorList.data.length>0&&filter.showContent.nonPriority\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#nonPrior\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.nonPriorList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.nonPriorList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"nonPrior\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.nonPriorList.data\">\r\n                        <input type=\"checkbox\" @change=\"achiveTask($index,elist,'nonPriorList')\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--完成-->\r\n    <div class=\"task-list-container\" v-if=\"taskMsg.completeList.data.length>0&&filter.showContent.complete\">\r\n        <div>\r\n            <div  data-toggle=\"collapse\" data-target=\"#complete\" class=\"list-toggle\">\r\n                <i class=\"toggle-icon glyphicon glyphicon-chevron-right\"></i>\r\n                <div class=\"toggle-item clearfloat\">\r\n                    <div class=\"toggle-date\">{{taskMsg.completeList.title||' - '}}</div>\r\n                    <div class=\"toggle-acount\">{{taskMsg.completeList.data.length}}</div>\r\n                </div>\r\n            </div>\r\n            <div id=\"complete\" class=\"collapse\">\r\n                <ul class=\"every-list-container\">\r\n                    <li v-for=\"elist in taskMsg.completeList.data\">\r\n                        <input type=\"checkbox\" @change=\"unachiveTask($index,elist)\">\r\n                        <span>{{elist.item}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<clock></clock>";
+
+/***/ },
+/* 123 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _dynamicClock = __webpack_require__(124);
+	
+	var _dynamicClock2 = _interopRequireDefault(_dynamicClock);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	    template: _dynamicClock2.default,
+	    components: {},
+	    data: function data() {
+	        return {};
+	    },
+	
+	    methods: {},
+	    created: function created() {},
+	    ready: function ready() {
+	        var vm = this;
+	        var el = document.getElementById('clock');
+	        var clock = el.getContext('2d');
+	        vm.$set('clock', clock);
+	        __webpack_require__.e/* require */(1, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(125)]; (function () {
+	            alert('test');
+	        }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
+	    }
+	}; /**
+	    * Created by zhongxinzhi on 2016/9/23.
+	    */
 
 /***/ },
 /* 124 */
 /***/ function(module, exports) {
 
+	module.exports = "<div>\r\n    <canvas id=\"clock\" width=\"256\" height=\"128\">\r\n    </canvas>\r\n</div>\r\n";
+
+/***/ },
+/* 125 */,
+/* 126 */
+/***/ function(module, exports) {
+
 	module.exports = "\n<task-list :filter=\"filter\"></task-list>\n";
 
 /***/ },
-/* 125 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(126)
-	__vue_script__ = __webpack_require__(128)
+	__webpack_require__(128)
+	__vue_script__ = __webpack_require__(130)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\components\\all\\all.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(129)
+	__vue_template__ = __webpack_require__(131)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -20163,13 +20235,13 @@
 	})()}
 
 /***/ },
-/* 126 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(127);
+	var content = __webpack_require__(129);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(109)(content, {});
@@ -20189,7 +20261,7 @@
 	}
 
 /***/ },
-/* 127 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(104)();
@@ -20203,7 +20275,7 @@
 
 
 /***/ },
-/* 128 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20250,17 +20322,17 @@
 	//    import html from "./today.html"
 
 /***/ },
-/* 129 */
+/* 131 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<task-list :filter=\"filter\"></task-list>\n";
 
 /***/ },
-/* 130 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(131)
+	__vue_script__ = __webpack_require__(133)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
@@ -20283,7 +20355,7 @@
 	})()}
 
 /***/ },
-/* 131 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
@@ -20292,7 +20364,7 @@
 	    value: true
 	});
 	
-	var _menu = __webpack_require__(132);
+	var _menu = __webpack_require__(134);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -20361,29 +20433,29 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 132 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"menu\">\r\n    <div :class=\"['menu-toggle',menuToggle.toggleStatus]\" @click=\"toggle\">\r\n        <span :class=\"['glyphicon',menuToggle.toggleIcon]\"></span>\r\n    </div>\r\n    <div class=\"user-info clearfloat\">\r\n        <div class=\"user-portrait\">\r\n            <img src=\"" + __webpack_require__(133) + "\">\r\n        </div>\r\n        <div class=\"user-name\"><a href=\"#\">zworld</a></div>\r\n        <div class=\"user-tool\">\r\n            <a href=\"#\"><span  class=\"glyphicon glyphicon-search\"></span></a>\r\n            <a href=\"#\"><span  class=\"glyphicon glyphicon-envelope\"></span></a>\r\n        </div>\r\n    </div>\r\n    <div class=\"item-list-container\">\r\n        <ul class='menu-list'>\r\n            <li class=\"list-item\" v-for=\"item in allList\" v-link=\"{path: item.link}\">\r\n                <div class=\"item-left\">\r\n                    <span  :class=\"['glyphicon',item.icon]\"></span>\r\n                    <span class=\"item-title\">{{item.title}}</span>\r\n                </div>\r\n                <div class=\"count-tag\">\r\n                    {{item.count}}\r\n                </div>\r\n            </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n";
+	module.exports = "<div class=\"menu\">\r\n    <div :class=\"['menu-toggle',menuToggle.toggleStatus]\" @click=\"toggle\">\r\n        <span :class=\"['glyphicon',menuToggle.toggleIcon]\"></span>\r\n    </div>\r\n    <div class=\"user-info clearfloat\">\r\n        <div class=\"user-portrait\">\r\n            <img src=\"" + __webpack_require__(135) + "\">\r\n        </div>\r\n        <div class=\"user-name\"><a href=\"#\">zworld</a></div>\r\n        <div class=\"user-tool\">\r\n            <a href=\"#\"><span  class=\"glyphicon glyphicon-search\"></span></a>\r\n            <a href=\"#\"><span  class=\"glyphicon glyphicon-envelope\"></span></a>\r\n        </div>\r\n    </div>\r\n    <div class=\"item-list-container\">\r\n        <ul class='menu-list'>\r\n            <li class=\"list-item\" v-for=\"item in allList\" v-link=\"{path: item.link}\">\r\n                <div class=\"item-left\">\r\n                    <span  :class=\"['glyphicon',item.icon]\"></span>\r\n                    <span class=\"item-title\">{{item.title}}</span>\r\n                </div>\r\n                <div class=\"count-tag\">\r\n                    {{item.count}}\r\n                </div>\r\n            </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n";
 
 /***/ },
-/* 133 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "./images/portrait.jpg?69c38a97";
 
 /***/ },
-/* 134 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(135)
-	__vue_script__ = __webpack_require__(137)
+	__webpack_require__(137)
+	__vue_script__ = __webpack_require__(139)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\components\\week\\week.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(138)
+	__vue_template__ = __webpack_require__(140)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -20402,13 +20474,13 @@
 	})()}
 
 /***/ },
-/* 135 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(136);
+	var content = __webpack_require__(138);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(109)(content, {});
@@ -20428,7 +20500,7 @@
 	}
 
 /***/ },
-/* 136 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(104)();
@@ -20442,7 +20514,7 @@
 
 
 /***/ },
-/* 137 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20487,23 +20559,23 @@
 	//    import html from "./today.html"
 
 /***/ },
-/* 138 */
+/* 140 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<task-list :filter=\"filter\"></task-list>\n";
 
 /***/ },
-/* 139 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(140)
-	__vue_script__ = __webpack_require__(142)
+	__webpack_require__(142)
+	__vue_script__ = __webpack_require__(144)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\components\\month\\month.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(143)
+	__vue_template__ = __webpack_require__(145)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -20522,13 +20594,13 @@
 	})()}
 
 /***/ },
-/* 140 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(141);
+	var content = __webpack_require__(143);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(109)(content, {});
@@ -20548,7 +20620,7 @@
 	}
 
 /***/ },
-/* 141 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(104)();
@@ -20562,7 +20634,7 @@
 
 
 /***/ },
-/* 142 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20607,7 +20679,7 @@
 	//    import html from "./today.html"
 
 /***/ },
-/* 143 */
+/* 145 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<task-list :filter=\"filter\"></task-list>\n";

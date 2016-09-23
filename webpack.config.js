@@ -18,8 +18,8 @@ module.exports = {
         //publicPath 给生成的文件添加的路径前缀
         publicPath: "/vue-webpack/dist",
         filename: "/js/[name].js",
-        //非入口文件,用AMD和CMD加载就会生成无名的chunk文件
-        chunkFilename: "lib/[name].bundle.js"
+        //非入口文件,用AMD和CMD加载就会生成无名的chunk文件，异步加载 列入用require,define
+        chunkFilename: "/lib/[name].bundle.js"
     },
 
     //loader
@@ -29,6 +29,11 @@ module.exports = {
             {
                 test:/\.vue$/,
                 loader:"vue"
+            },
+            //json加入
+            {
+                test:/\.json$/,
+                loader:"json-loader"
             },
             //转化ES6
             {

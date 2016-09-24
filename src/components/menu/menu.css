@@ -1,0 +1,70 @@
+.menu {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 260px;
+  background-color: #516bc1;
+}
+.user-info {
+  height: 90px;
+  padding: 20px 0 20px 20px;
+}
+.user-info div {
+  height: 100%;
+  line-height: 50px;
+  float: left;
+  overflow: hidden;
+}
+.user-portrait {
+  border-radius: 50%;
+  width: 45px;
+  border: 1px solid blue;
+}
+.user-portrait img {
+  max-width: 100%;
+}
+.user-name {
+  padding-left: 8px;
+}
+.user-tool {
+  width: 80px;
+  margin-left: 50px;
+}
+.user-tool a {
+  display: inline-block;
+  height: 50px;
+  width: 30px;
+}
+.menu-list {
+  border-bottom: 1px solid #4a3f85;
+}
+.list-item {
+  cursor: pointer;
+  height: 35px;
+  padding-left: 20px;
+  line-height: 35px;
+}
+.list-item .item-left {
+  float: left;
+  height: 35px;
+}
+.list-item .item-left .glyphicon {
+  font-size: 20px;
+  height: 35px;
+  top: 5px;
+}
+.list-item .count-tag {
+  float: right;
+  margin-right: 20px;
+}
+.menu-toggle {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 25px;
+}
+.menu-toggle span {
+  top: 0px;
+}
+/*# sourceMappingURL=menu.css.map */

@@ -173,7 +173,7 @@
             }
             $('.datepicker').datetimepicker(option).on('changeDate',function(){
 
-                vm.taskMsg.addDate = $('#datepicker').datetimepicker('getFormattedDate')
+                vm.taskMsg.addDate = $('.datepicker').datetimepicker('getFormattedDate')
             });
         }
 
